@@ -95,3 +95,20 @@ def test_select_more_choices_than_allowed():
 def test_create_question_with_title():
     question = Question(title='q1')
     assert question.title == 'q1'
+
+@pytest.fixture
+def questao_multipla_escolha():
+    return {
+        "enunciado": "Qual é a capital do Brasil?",
+        "opcoes": ["São Paulo", "Rio de Janeiro", "Brasília", "Porto Alegre"],
+        "resposta_certa": "Brasília"
+    }
+
+def test_questao_multipla_escolha(questao_multipla_escolha):
+    assert questao_multipla_escolha["enunciado"] == "Qual é a capital do Brasil?"
+    assert len(questao_multipla_escolha["opcoes"]) == 4
+    assert questao_multipla_escolha["resposta_certa"] == "Brasília"
+
+def test_questao_multipla_escolha_errada(questao_multipla_escolha):
+    questao_multipla_escolha["resposta_certa"] = "São Paulo"
+    assert questao_multipla_escolha["resposta_certa"] != "Brasília"
